@@ -1,0 +1,54 @@
+{
+  "mobile": [
+    {
+      "width": 320,
+      "height": 640,
+      "cards": "vertical, no horizontal overflow",
+      "bottomSpace": 12,
+      "touchNavigationAndDialogs": "passed",
+      "externalTarget": "https://oxxdesign.nl/ (request intercepted)"
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "cards": "vertical, no horizontal overflow",
+      "bottomSpace": 12,
+      "touchNavigationAndDialogs": "passed",
+      "externalTarget": "https://oxxdesign.nl/ (request intercepted)"
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "cards": "vertical, no horizontal overflow",
+      "bottomSpace": 12,
+      "touchNavigationAndDialogs": "passed",
+      "externalTarget": "https://oxxdesign.nl/ (request intercepted)"
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "cards": "vertical, no horizontal overflow",
+      "bottomSpace": 12,
+      "touchNavigationAndDialogs": "passed",
+      "externalTarget": "https://oxxdesign.nl/ (request intercepted)"
+    },
+    {
+      "width": 650,
+      "height": 900,
+      "cards": "vertical, no horizontal overflow",
+      "bottomSpace": 12,
+      "touchNavigationAndDialogs": "passed",
+      "externalTarget": "https://oxxdesign.nl/ (request intercepted)"
+    },
+    {
+      "width": 700,
+      "height": 900,
+      "cards": "vertical, no horizontal overflow",
+      "bottomSpace": 12,
+      "touchNavigationAndDialogs": "passed",
+      "externalTarget": "https://oxxdesign.nl/ (request intercepted)"
+    }
+  ],
+  "desktop": "pixel identical to V4.1 at 701, 844 and 1440px",
+  "collectionHTMLAndOriginalImages": "unchanged"
+}

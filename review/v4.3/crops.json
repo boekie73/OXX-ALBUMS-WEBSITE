@@ -1,0 +1,67 @@
+{
+  "header": {
+    "box": [
+      0,
+      0,
+      512,
+      360
+    ],
+    "size": [
+      512,
+      360
+    ],
+    "decodedPixelSHA256": "a93245bbb4fcdc5e4c11e018806f715a0eb6347b2f3d156b24ca5e109aca635b"
+  },
+  "classic": {
+    "box": [
+      48,
+      396,
+      411,
+      797
+    ],
+    "size": [
+      363,
+      401
+    ],
+    "decodedPixelSHA256": "48f9dda4ff8af421670b6600214af2bfac4fab89c6023dd7f1eb2e9a7006406e"
+  },
+  "essential": {
+    "box": [
+      422,
+      396,
+      781,
+      797
+    ],
+    "size": [
+      359,
+      401
+    ],
+    "decodedPixelSHA256": "2c10c9916d17e5c68680edcf4f4ba85b8765667764bac914b0948f8f06d9c05f"
+  },
+  "premium": {
+    "box": [
+      792,
+      396,
+      1155,
+      797
+    ],
+    "size": [
+      363,
+      401
+    ],
+    "decodedPixelSHA256": "6518e7c0ff6b533a85155dafc8ad2575dd245ebec9877e0520776e22e24bba04"
+  },
+  "design": {
+    "box": [
+      1167,
+      396,
+      1497,
+      797
+    ],
+    "size": [
+      330,
+      401
+    ],
+    "decodedPixelSHA256": "41e621ccb9338ec07733d3c27a1b1d4fbed1e8fc545ceff15b5d9a6e0bd55d58"
+  }
+}
