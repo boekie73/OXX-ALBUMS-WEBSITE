@@ -1,0 +1,42 @@
+{
+  "viewports": [
+    {
+      "width": 320,
+      "status": "passed"
+    },
+    {
+      "width": 360,
+      "status": "passed"
+    },
+    {
+      "width": 393,
+      "status": "passed"
+    },
+    {
+      "width": 412,
+      "status": "passed"
+    },
+    {
+      "width": 650,
+      "status": "passed"
+    },
+    {
+      "width": 700,
+      "status": "passed"
+    },
+    {
+      "width": 701,
+      "status": "passed"
+    },
+    {
+      "width": 844,
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "status": "passed"
+    }
+  ],
+  "desktopPixels": "identical",
+  "embeddedPages": "identical"
+}

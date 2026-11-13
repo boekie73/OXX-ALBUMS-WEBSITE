@@ -1,0 +1,5 @@
+Mobile V4.1 scales the approved raster designs down to phone width, making text and navigation small and leaving large empty areas beneath collection designs. V4.2 adds a mobile reading canvas with horizontal swiping, a fit-to-screen overview mode, 44px mobile navigation controls and content-sized collection frames. All original image data and embedded collection documents are unchanged; V4.1 remains available as the baseline.
+
+The mobile styles apply only through 700 CSS pixels. Desktop screenshot comparisons verify unchanged rendering. Premium remains ON HOLD, and Mijn OXX remains in development. The index points to V4.2 only on this development branch; do not merge or deploy before Android acceptance.
+
+Validation: Chromium mobile/touch emulation across 320, 360, 393, 412, 650, 700, 701, 844 and 1440px; all collection dialogs, Classic/Essential/Home navigation, reading/overview modes, iframe height, JavaScript errors, Premium unavailability and portrait/landscape changes. Before/after screenshots and reproducible checks are in review/v4.2. Physical Android acceptance is still required.
