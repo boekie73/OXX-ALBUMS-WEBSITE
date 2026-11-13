@@ -1,30 +1,29 @@
-<!doctype html>
-<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OXX Albums — testwebsite</title>
-<style>html,body{margin:0;width:100%;height:100%;background:#061624}#site{display:block;border:0;width:100%;height:100dvh}</style>
-</head><body><iframe id="site" title="OXX Albums" src="OXXAlbums_Android_V4_1_navigatie_fix.html"></iframe>
-<script>
-/* Kleine navigatiecorrectie buiten het goedgekeurde visuele bestand. */
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OXX Albums — testwebsite</title><style>html,body{margin:0;width:100%;height:100%;background:#061624}#site{display:block;border:0;width:100%;height:100dvh}</style></head><body><iframe id="site" title="OXX Albums" src="OXXAlbums_Android_V4_1_navigatie_fix.html"></iframe><script>
 const site=document.getElementById('site');
 function connect(){
-  try{
-    const app=site.contentWindow, inner=site.contentDocument.getElementById('frame');
-    if(!inner)return;
-    const hook=()=>{
-      const doc=inner.contentDocument;
-      if(!doc||!doc.body||doc.body.dataset.oxxNavFixed)return;
-      doc.body.dataset.oxxNavFixed='1';
-      doc.addEventListener('click',event=>{
-        const link=event.target.closest('a.hotspot.classic,a.hotspot.essential,a.hotspot.logo,a.hotspot.home');
-        if(!link)return;
-        event.preventDefault();event.stopImmediatePropagation();
-        if(link.classList.contains('classic'))app.openPage('classic');
-        else if(link.classList.contains('essential'))app.openPage('essential');
-        else app.goHome();
-      },true);
-    };
-    inner.addEventListener('load',hook);hook();
-  }catch(e){console.warn('OXX navigation bridge',e)}
+ try{
+  const outer=site.contentWindow;
+  const inner=site.contentDocument.getElementById('frame');
+  if(!inner)return;
+  function hook(){
+   const doc=inner.contentDocument;
+   if(!doc||!doc.body||doc.body.dataset.oxxNavFixed)return;
+   doc.body.dataset.oxxNavFixed='1';
+   doc.addEventListener('click',function(event){
+    const target=event.target.closest('a.hit,a.hotspot,button.hit,button.hotspot');
+    if(!target)return;
+    let destination=null;
+    if(target.classList.contains('classic'))destination='classic';
+    else if(target.classList.contains('essential'))destination='essential';
+    else if(target.classList.contains('home')||target.classList.contains('logo'))destination='home';
+    if(!destination)return;
+    event.preventDefault();event.stopImmediatePropagation();
+    if(destination==='home')outer.goHome();
+    else outer.openPage(destination);
+   },true);
+  }
+  inner.addEventListener('load',hook);hook();
+ }catch(e){console.warn('OXX navigation bridge:',e)}
 }
 site.addEventListener('load',connect);
 </script></body></html>
