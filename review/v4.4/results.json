@@ -1,0 +1,27 @@
+{
+  "mobile": [
+    {
+      "width": 320,
+      "height": 640,
+      "touchNavigationDialogsCloseAndReturn": "passed",
+      "customerTexts": "exact",
+      "externalLinkAndBrowserBack": "passed, external request intercepted"
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "touchNavigationDialogsCloseAndReturn": "passed",
+      "customerTexts": "exact",
+      "externalLinkAndBrowserBack": "passed, external request intercepted"
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "touchNavigationDialogsCloseAndReturn": "passed",
+      "customerTexts": "exact",
+      "externalLinkAndBrowserBack": "passed, external request intercepted"
+    }
+  ],
+  "desktop": "Home/Classic/Essential pixel identical to V4.3 at 1440px",
+  "errors": []
+}
