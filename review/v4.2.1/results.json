@@ -1,0 +1,60 @@
+{
+  "mobile": [
+    {
+      "width": 320,
+      "height": 640,
+      "overview": 320,
+      "reading": 1028.140625,
+      "navHeight": 61,
+      "touchSwipe": "passed",
+      "navigationAndDialogs": "passed"
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "overview": 360,
+      "reading": 1312.25,
+      "navHeight": 61,
+      "touchSwipe": "passed",
+      "navigationAndDialogs": "passed"
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "overview": 393,
+      "reading": 1402.8125,
+      "navHeight": 61,
+      "touchSwipe": "passed",
+      "navigationAndDialogs": "passed"
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "overview": 412,
+      "reading": 1516.453125,
+      "navHeight": 61,
+      "touchSwipe": "passed",
+      "navigationAndDialogs": "passed"
+    },
+    {
+      "width": 650,
+      "height": 900,
+      "overview": 650,
+      "reading": 1489.828125,
+      "navHeight": 61,
+      "touchSwipe": "passed",
+      "navigationAndDialogs": "passed"
+    },
+    {
+      "width": 700,
+      "height": 900,
+      "overview": 700,
+      "reading": 1489.828125,
+      "navHeight": 61,
+      "touchSwipe": "passed",
+      "navigationAndDialogs": "passed"
+    }
+  ],
+  "desktop": "pixel identical at 701, 844, 1440",
+  "originalImagesAndEmbeddedCollectionHTML": "byte identical"
+}
