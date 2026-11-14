@@ -1,0 +1,20 @@
+{
+  "tests": [
+    {
+      "width": 393,
+      "height": 851,
+      "formsAndReview": "unchanged and passed",
+      "client": "disabled; no request or storage",
+      "payloadMatchesServerSchema": true
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "formsAndReview": "unchanged and passed",
+      "client": "disabled; no request or storage",
+      "payloadMatchesServerSchema": true
+    }
+  ],
+  "frontendPixels": "identical to V4.7 on mobile and desktop",
+  "functionalProblems": []
+}

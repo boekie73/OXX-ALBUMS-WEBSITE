@@ -1,0 +1,9 @@
+# V4.8 delivery
+
+Development branch: `codex/requests-v4.8`. Backend: `backend/` (see its README). Disabled frontend contract mapper: `web/application-api.mjs`. Standalone frontend source: `OXXAlbums_Android_V4_8.html`.
+
+The V4.8 HTML is the published V4.7 plus one module loader. No existing image, slogan, form, validation, review message, price, condition, popup or navigation code changes. The mapper prepares the six application fields for `POST /api/aanvragen` but `send()` always rejects before any network operation; its object is frozen and no URL/storage/runtime enable switch exists. It is not connected to an active submit control. The V4.7 “not sent/no data stored” message remains unchanged.
+
+Run backend tests with `npm test --prefix backend`. See `backend-results.json` for results; only fictitious test data is ever used. Website tests are `node review/v4.8/website.test.cjs`: serve `/tmp/oxx48-web` on port 8008 with `/baseline.html` equal to V4.7 and `/preview/v4.8/index.html` equal to V4.8 plus its `web/application-api.mjs`. Tests use mobile Chromium/touch at 393×851 and desktop at 1440×900. They check the existing forms/review/correction/reset, other information windows/Home routes, mapper/server compatibility, disabled send and zero form requests/storage. Home, Classic, Essential and the Start form are pixel compared with V4.7 on both viewports. These are automated browser checks, not physical Android acceptance.
+
+For Pages publish only two new paths: `preview/v4.8/index.html` and `preview/v4.8/web/application-api.mjs`. Do not publish the backend under Pages or modify main-site/old preview files. Backend source/tests live on the development branch for a future separate server deployment. No V4.5 is introduced. No real customer records, real credentials, temporary TLS keys or private logs are part of the delivery.

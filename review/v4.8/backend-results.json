@@ -1,0 +1,17 @@
+{
+  "tests": 15,
+  "passed": 15,
+  "failed": 0,
+  "fixtures": "fictitious .invalid addresses, test-only volatile memory",
+  "checks": [
+    "server schema, six formats and collection limits",
+    "disabled/incomplete configuration",
+    "actual HTTPS and refusal of forwarded-header bypass",
+    "origin/method/automation restrictions and verifier timeout",
+    "rate limits and bounded capacity",
+    "body/media-type/UTF-8 limits including chunked bodies",
+    "safe error responses and audit events",
+    "unpredictable ids and internal sequential statuses",
+    "disabled immutable website mapper"
+  ]
+}
