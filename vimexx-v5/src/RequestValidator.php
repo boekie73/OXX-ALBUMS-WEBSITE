@@ -39,7 +39,8 @@ final class RequestValidator
                 continue;
             }
             $value = trim($value);
-            if (mb_strlen($value, 'UTF-8') > $max || ($field !== 'opmerkingen' && $value === '')) {
+            $length = function_exists('mb_strlen') ? mb_strlen($value, 'UTF-8') : strlen($value);
+            if ($length > $max || ($field !== 'opmerkingen' && $value === '')) {
                 $errors[$field] = 'Veld ontbreekt of is te lang.';
             }
             $data[$field] = $value;
