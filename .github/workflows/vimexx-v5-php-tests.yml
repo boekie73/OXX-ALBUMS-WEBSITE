@@ -1,0 +1,31 @@
+name: V5 PHP contract checks
+on:
+  push:
+    branches:
+      - codex/v5-0-vimexx-php
+    paths:
+      - 'vimexx-v5/**'
+      - '.github/workflows/vimexx-v5-php-tests.yml'
+  pull_request:
+    paths:
+      - 'vimexx-v5/**'
+      - '.github/workflows/vimexx-v5-php-tests.yml'
+  workflow_dispatch:
+
+jobs:
+  php-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+      - name: PHP syntax
+        run: |
+          find vimexx-v5 -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Existing validation tests
+        run: php vimexx-v5/tests/RequestValidatorTest.php
+      - name: V4.8 intake mapping tests
+        run: php vimexx-v5/tests/V48IntakeMapperTest.php
