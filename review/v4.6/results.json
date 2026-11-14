@@ -1,0 +1,61 @@
+{
+  "tests": [
+    {
+      "width": 320,
+      "height": 640,
+      "collections": [
+        "classic",
+        "essential"
+      ],
+      "validation": "passed",
+      "sixFormats": "passed",
+      "closeResetAndReturn": "passed",
+      "applicationRequests": 0,
+      "applicationStorage": "none",
+      "otherDialogsAndRoutes": "passed"
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "collections": [
+        "classic",
+        "essential"
+      ],
+      "validation": "passed",
+      "sixFormats": "passed",
+      "closeResetAndReturn": "passed",
+      "applicationRequests": 0,
+      "applicationStorage": "none",
+      "otherDialogsAndRoutes": "passed"
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "collections": [
+        "classic",
+        "essential"
+      ],
+      "validation": "passed",
+      "sixFormats": "passed",
+      "closeResetAndReturn": "passed",
+      "applicationRequests": 0,
+      "applicationStorage": "none",
+      "otherDialogsAndRoutes": "passed"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "collections": [
+        "classic",
+        "essential"
+      ],
+      "validation": "passed",
+      "sixFormats": "passed",
+      "closeResetAndReturn": "passed",
+      "applicationRequests": 0,
+      "applicationStorage": "none",
+      "otherDialogsAndRoutes": "passed"
+    }
+  ],
+  "closedDesktop": "pixel identical to V4.4"
+}
