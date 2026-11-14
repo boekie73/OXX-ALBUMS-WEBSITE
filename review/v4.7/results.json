@@ -1,0 +1,42 @@
+{
+  "tests": [
+    {
+      "width": 320,
+      "height": 640,
+      "validation": "passed",
+      "limits": "Classic 180; Essential 300; no automatic switching",
+      "summaryCorrectionAndReset": "passed",
+      "noTransmissionOrStorage": "passed",
+      "existingDialogsAndNavigation": "passed"
+    },
+    {
+      "width": 393,
+      "height": 851,
+      "validation": "passed",
+      "limits": "Classic 180; Essential 300; no automatic switching",
+      "summaryCorrectionAndReset": "passed",
+      "noTransmissionOrStorage": "passed",
+      "existingDialogsAndNavigation": "passed"
+    },
+    {
+      "width": 412,
+      "height": 915,
+      "validation": "passed",
+      "limits": "Classic 180; Essential 300; no automatic switching",
+      "summaryCorrectionAndReset": "passed",
+      "noTransmissionOrStorage": "passed",
+      "existingDialogsAndNavigation": "passed"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "validation": "passed",
+      "limits": "Classic 180; Essential 300; no automatic switching",
+      "summaryCorrectionAndReset": "passed",
+      "noTransmissionOrStorage": "passed",
+      "existingDialogsAndNavigation": "passed"
+    }
+  ],
+  "unchangedDesktop": "pixel identical to V4.6 outside the revised dialog",
+  "functionalProblems": []
+}
