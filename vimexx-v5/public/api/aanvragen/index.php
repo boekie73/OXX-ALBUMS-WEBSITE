@@ -42,7 +42,8 @@ try {
     respond(400, ['error' => 'Ongeldige JSON.']);
 }
 require_once dirname(__DIR__, 3) . '/src/RequestValidator.php';
-$validation = \OxxAlbums\V5\RequestValidator::validate($body);
+require_once dirname(__DIR__, 3) . '/src/V48IntakeMapper.php';
+$validation = \OxxAlbums\V5\V48IntakeMapper::map($body);
 if (!$validation['ok']) {
     respond(422, ['error' => 'Controleer de invoer.', 'fields' => $validation['errors']]);
 }
