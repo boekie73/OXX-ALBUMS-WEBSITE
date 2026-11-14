@@ -29,3 +29,14 @@ jobs:
         run: php vimexx-v5/tests/RequestValidatorTest.php
       - name: V4.8 intake mapping tests
         run: php vimexx-v5/tests/V48IntakeMapperTest.php
+
+      - name: Local HTTP endpoint contract
+        run: |
+          php -S 127.0.0.1:18743 -t vimexx-v5/public >/tmp/oxx-php-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for i in $(seq 1 30); do
+            if curl --silent --output /dev/null http://127.0.0.1:18743/api/aanvragen/; then break; fi
+            sleep 0.2
+          done
+          php vimexx-v5/tests/HttpEndpointTest.php
