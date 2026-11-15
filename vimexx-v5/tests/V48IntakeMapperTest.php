@@ -34,5 +34,19 @@ foreach ($cases as $name => [$input, $expected]) {
         echo "PASS $name\n";
     }
 }
-echo count($cases) . " cases, $failed failures\n";
+$formats = ['staand 21x28', 'staand 15x21', 'liggend 28x19', 'liggend 21x15', 'vierkant 19x19', 'vierkant 15x15'];
+foreach (['classic' => 180, 'essential' => 300] as $collection => $maxPhotos) {
+    foreach ($formats as $format) {
+        $input = array_replace($base, ['collection' => $collection, 'bookFormat' => $format, 'photoCount' => $maxPhotos]);
+        $result = V48IntakeMapper::map($input);
+        $name = "format_{$collection}_{$format}";
+        if (!$result['ok'] || $result['data']['boekformaat'] !== $format) {
+            $failed++;
+            fwrite(STDERR, "FAIL $name\n");
+        } else {
+            echo "PASS $name\n";
+        }
+    }
+}
+echo (count($cases) + count($formats) * 2) . " cases, $failed failures\n";
 exit($failed ? 1 : 0);
