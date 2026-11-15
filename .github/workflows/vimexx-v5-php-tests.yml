@@ -22,6 +22,7 @@ jobs:
         with:
           php-version: '8.3'
           coverage: none
+          extensions: pdo_sqlite
       - name: PHP syntax
         run: |
           find vimexx-v5 -name '*.php' -print0 | xargs -0 -n1 php -l
@@ -40,3 +41,6 @@ jobs:
             sleep 0.2
           done
           php vimexx-v5/tests/HttpEndpointTest.php
+
+      - name: Isolated PDO intake storage tests
+        run: php vimexx-v5/tests/IntakeRepositoryTest.php
