@@ -22,6 +22,7 @@ foreach (['002_rate_limit.sql', '001_intake.sql'] as $name) {
     }
     $db->exec($sql);
 }
+$baselineIntakes = (int)$db->query('SELECT COUNT(*) FROM oxx_intake')->fetchColumn();
 $preflight = new IntakePreflight(new IntakeGate($db));
 $origin = 'https://oxxalbums.nl';
 $secret = str_repeat('preflight-test-secret-', 2);
@@ -40,7 +41,7 @@ $checks = [
     'valid_preflight_only' => $valid['allowed'] && $valid['data']['aantal_fotos'] === 180,
     'invalid_rejected' => !$invalid['allowed'] && $invalid['reason'] === 'validation',
     'wrong_origin_rejected' => !$wrongOrigin['allowed'] && $wrongOrigin['reason'] === 'origin',
-    'no_intake_saved' => (int)$db->query('SELECT COUNT(*) FROM oxx_intake')->fetchColumn() === 0,
+    'no_intake_saved' => (int)$db->query('SELECT COUNT(*) FROM oxx_intake')->fetchColumn() === $baselineIntakes,
 ];
 for ($i = 0; $i < 8; $i++) {
     $run(['unexpected' => 'invalid'], $origin, $ip, 18003 + $i);
