@@ -15,6 +15,21 @@ on:
 jobs:
   php-contract:
     runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb:11.4
+        env:
+          MARIADB_ROOT_PASSWORD: test-root-only
+          MARIADB_DATABASE: oxx_intake_test
+          MARIADB_USER: oxx_test
+          MARIADB_PASSWORD: test-only
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
     steps:
       - uses: actions/checkout@v4
       - name: Configure PHP 8.3
@@ -22,7 +37,7 @@ jobs:
         with:
           php-version: '8.3'
           coverage: none
-          extensions: pdo_sqlite
+          extensions: pdo_sqlite, pdo_mysql
       - name: PHP syntax
         run: |
           find vimexx-v5 -name '*.php' -print0 | xargs -0 -n1 php -l
@@ -44,3 +59,10 @@ jobs:
 
       - name: Isolated PDO intake storage tests
         run: php vimexx-v5/tests/IntakeRepositoryTest.php
+
+      - name: Isolated MariaDB 11.4 integration
+        env:
+          OXX_TEST_MYSQL_DSN: mysql:host=127.0.0.1;port=3306;dbname=oxx_intake_test;charset=utf8mb4
+          OXX_TEST_MYSQL_USER: oxx_test
+          OXX_TEST_MYSQL_PASSWORD: test-only
+        run: php vimexx-v5/tests/MysqlIntakeIntegrationTest.php
