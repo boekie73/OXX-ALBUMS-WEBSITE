@@ -24,7 +24,7 @@ final class IntakeRepository
         }
         // Enforce the complete business rules even if this repository is called directly.
         $checked = RequestValidator::validate($validated);
-        if (!$checked['ok'] || $checked['data'] !== $validated) {
+        if (!$checked['ok'] || $checked['data'] != $validated) {
             throw new RuntimeException('Invalid or non-canonical intake');
         }
         $bytes = random_bytes(16);
