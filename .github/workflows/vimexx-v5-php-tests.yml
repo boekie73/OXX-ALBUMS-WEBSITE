@@ -69,3 +69,10 @@ jobs:
 
       - name: HTTPS same-origin security checks
         run: php vimexx-v5/tests/OriginPolicyTest.php
+
+      - name: Isolated MariaDB rate-limit checks
+        env:
+          OXX_TEST_MYSQL_DSN: mysql:host=127.0.0.1;port=3306;dbname=oxx_intake_test;charset=utf8mb4
+          OXX_TEST_MYSQL_USER: oxx_test
+          OXX_TEST_MYSQL_PASSWORD: test-only
+        run: php vimexx-v5/tests/MysqlRateLimiterTest.php
