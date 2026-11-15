@@ -48,7 +48,7 @@ for ($i = 0; $i < 8; $i++) {
 }
 $blocked = $run($payload, $origin, $ip, 18020);
 $checks['invalid_attempts_counted'] = !$blocked['allowed'] && $blocked['reason'] === 'limit';
-$checks['still_no_intake_saved'] = (int)$db->query('SELECT COUNT(*) FROM oxx_intake')->fetchColumn() === 0;
+$checks['still_no_intake_saved'] = (int)$db->query('SELECT COUNT(*) FROM oxx_intake')->fetchColumn() === $baselineIntakes;
 foreach ($checks as $name => $ok) {
     if (!$ok) {
         throw new RuntimeException('FAIL: ' . $name);
