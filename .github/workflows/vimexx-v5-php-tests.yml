@@ -66,3 +66,6 @@ jobs:
           OXX_TEST_MYSQL_USER: oxx_test
           OXX_TEST_MYSQL_PASSWORD: test-only
         run: php vimexx-v5/tests/MysqlIntakeIntegrationTest.php
+
+      - name: HTTPS same-origin security checks
+        run: php vimexx-v5/tests/OriginPolicyTest.php
