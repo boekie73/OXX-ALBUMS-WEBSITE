@@ -48,6 +48,20 @@ try {
 } catch (RuntimeException) {
     check('missing_fields_rejected', true);
 }
+foreach ([
+    'over_limit_classic' => ['aantal_fotos' => 181],
+    'premium_rejected' => ['collectie' => 'Premium'],
+    'invalid_email' => ['email' => 'not-an-email'],
+    'unknown_field' => ['extra' => 'surprise'],
+    'noncanonical_name' => ['naam' => ' Test Klant '],
+] as $name => $changes) {
+    try {
+        $repo->save(array_replace($valid, $changes));
+        check($name, false);
+    } catch (RuntimeException) {
+        check($name, true);
+    }
+}
 check('no_partial_insert', (int)$db->query('SELECT COUNT(*) FROM oxx_intake')->fetchColumn() === 2);
-echo "7 cases; $failures failures\n";
+echo "12 cases; $failures failures\n";
 exit($failures ? 1 : 0);
