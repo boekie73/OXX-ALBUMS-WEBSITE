@@ -76,3 +76,6 @@ jobs:
           OXX_TEST_MYSQL_USER: oxx_test
           OXX_TEST_MYSQL_PASSWORD: test-only
         run: php vimexx-v5/tests/MysqlRateLimiterTest.php
+
+      - name: Visitor HMAC privacy and spoofing checks
+        run: php vimexx-v5/tests/VisitorKeyTest.php
