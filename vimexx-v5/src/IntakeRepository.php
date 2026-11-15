@@ -6,6 +6,8 @@ namespace OxxAlbums\V5;
 use PDO;
 use RuntimeException;
 
+require_once __DIR__ . '/RequestValidator.php';
+
 /**
  * Private intake-only persistence. Does not create or modify I3 orders,
  * revisions, photos, ZIP files or proofs.
@@ -19,6 +21,11 @@ final class IntakeRepository
         if (!isset($validated['naam'], $validated['email'], $validated['collectie'],
             $validated['boekformaat'], $validated['aantal_fotos'], $validated['opmerkingen'])) {
             throw new RuntimeException('Validated intake fields missing');
+        }
+        // Enforce the complete business rules even if this repository is called directly.
+        $checked = RequestValidator::validate($validated);
+        if (!$checked['ok'] || $checked['data'] !== $validated) {
+            throw new RuntimeException('Invalid or non-canonical intake');
         }
         $bytes = random_bytes(16);
         $bytes[6] = chr((ord($bytes[6]) & 0x0f) | 0x40);
