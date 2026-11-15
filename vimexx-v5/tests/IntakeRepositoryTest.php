@@ -54,6 +54,7 @@ foreach ([
     'invalid_email' => ['email' => 'not-an-email'],
     'unknown_field' => ['extra' => 'surprise'],
     'noncanonical_name' => ['naam' => ' Test Klant '],
+    'numeric_string_not_canonical' => ['aantal_fotos' => '180'],
 ] as $name => $changes) {
     try {
         $repo->save(array_replace($valid, $changes));
@@ -62,6 +63,13 @@ foreach ([
         check($name, true);
     }
 }
-check('no_partial_insert', (int)$db->query('SELECT COUNT(*) FROM oxx_intake')->fetchColumn() === 2);
-echo "12 cases; $failures failures\n";
+$reordered = array_reverse($valid, true);
+try {
+    $repo->save($reordered);
+    check('field_order_independent', true);
+} catch (RuntimeException) {
+    check('field_order_independent', false);
+}
+check('no_partial_insert', (int)$db->query('SELECT COUNT(*) FROM oxx_intake')->fetchColumn() === 3);
+echo "14 cases; $failures failures\n";
 exit($failures ? 1 : 0);
