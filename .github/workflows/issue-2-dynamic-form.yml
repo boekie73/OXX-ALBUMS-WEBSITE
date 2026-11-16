@@ -1,0 +1,30 @@
+name: Issue 2 dynamic form source inspection
+on:
+  push:
+    branches: [work/issue-2-intake-contract]
+    paths:
+      - '.github/workflows/issue-2-dynamic-form.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect dynamic form implementation without leaking user data
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('preview/v4.8/index.html').read_text(encoding='utf-8')
+          terms=['customerName','bookFormat','photoCount','comments','Controleer aanvraag','Aanvraagverzending','createApplicationClient','<form','<input','<select','<textarea','application-api']
+          for term in terms:
+              matches=list(re.finditer(re.escape(term),s,re.I))
+              print(f'\nTERM {term!r}: {len(matches)} matches')
+              for m in matches[:4]:
+                  excerpt=s[max(0,m.start()-180):min(len(s),m.end()+240)]
+                  excerpt=re.sub(r'data:image/[^;]+;base64,[A-Za-z0-9+/=]+','[embedded-image]',excerpt)
+                  print(repr(excerpt[:450]))
+          print('\nInline script count:',len(re.findall(r'<script\\b',s,re.I)))
+          PY
