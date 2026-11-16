@@ -1,0 +1,61 @@
+name: Issue 2 V4.8 form contract audit
+on:
+  push:
+    branches: [work/issue-2-intake-contract]
+    paths:
+      - '.github/workflows/issue-2-form-contract.yml'
+      - 'vimexx-v5/tests/IntakeContractBoundaryTest.php'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+      - name: Run intake boundary tests
+        run: php vimexx-v5/tests/IntakeContractBoundaryTest.php
+      - name: Audit actual V4.8 HTML form fields and values
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import json
+          class Audit(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.forms=[]; self.current=None; self.select=None
+              def handle_starttag(self, tag, attrs):
+                  a=dict(attrs)
+                  if tag=='form':
+                      self.current={'id':a.get('id'), 'method':a.get('method'), 'action':a.get('action'), 'fields':[]}
+                      self.forms.append(self.current)
+                  if self.current is not None and tag in ('input','select','textarea','button'):
+                      item={'tag':tag,'name':a.get('name'),'type':a.get('type'),'value':a.get('value'),'id':a.get('id')}
+                      if tag=='select': item['options']=[]; self.select=item
+                      self.current['fields'].append(item)
+                  if tag=='option' and self.select is not None:
+                      self.select['options'].append(a.get('value'))
+              def handle_endtag(self,tag):
+                  if tag=='select': self.select=None
+                  if tag=='form': self.current=None
+          source=Path('preview/v4.8/index.html').read_text(encoding='utf-8')
+          audit=Audit(); audit.feed(source)
+          print('HTML bytes:',len(source.encode('utf-8')))
+          print('Forms found:',len(audit.forms))
+          print(json.dumps(audit.forms,indent=2,ensure_ascii=False))
+          required={'customerName','email','collection','bookFormat','photoCount','comments'}
+          actual={f['name'] for form in audit.forms for f in form['fields'] if f['name']}
+          print('Expected API field names:',sorted(required))
+          print('Form names found:',sorted(actual))
+          missing=required-actual
+          print('Names missing from HTML forms:',sorted(missing))
+          # Diagnostic only: form might be built dynamically by JS.
+          PY
