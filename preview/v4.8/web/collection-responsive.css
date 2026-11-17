@@ -1,0 +1,33 @@
+html,body{min-height:0!important;overflow-wrap:anywhere}
+.responsive-collection{display:none}
+dialog{font-size:16px;max-height:calc(100dvh - 24px);overscroll-behavior:contain}
+dialog .close{min-width:44px;min-height:44px}
+summary{min-height:44px;padding:10px 0}
+.note{font-size:14px}
+@media(max-width:1023px){
+ .shell,.page{display:none}
+ .responsive-collection{display:block;max-width:960px;margin:auto;padding:16px;color:#f3e9d8;font:16px/1.65 Arial,sans-serif}
+ .responsive-collection h1{font:42px Georgia,serif;color:#e5c68a;margin:0 0 12px}
+ .responsive-collection h2{font:28px/1.25 Georgia,serif;color:#e5c68a;margin:0 0 14px}
+ .responsive-collection nav{display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid #b69a62;padding-bottom:16px;margin-bottom:20px}
+ .responsive-collection a,.responsive-collection button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid #b69a62;border-radius:24px;background:#0b2030;color:#f3e9d8;padding:10px 16px;font:16px/1.5 Arial,sans-serif;text-decoration:none;cursor:pointer;max-width:100%}
+ .responsive-collection [aria-current]{color:#ffe1a0;border-width:2px}
+ .responsive-collection .gold{background:#d2af73;color:#10202e;font-weight:bold}
+ .responsive-collection :focus-visible{outline:3px solid #ffe1a0;outline-offset:2px}
+ .collection-copy{display:grid;gap:24px}
+ .collection-copy section{min-width:0}
+ .collection-copy button{margin:0 0 12px}
+ .price{font:32px Georgia,serif;color:#e5c68a}
+ .price span{display:block;font:16px/1.6 Arial,sans-serif;margin-top:8px}
+ .responsive-collection figure{margin:24px 0 0}
+ .responsive-collection figcaption{font-size:14px;color:#c6c8c8;margin-bottom:8px}
+ .responsive-collection .master{display:block;width:100%;height:auto}
+ /* Wrap comparison cells instead of requiring a horizontal swipe. */
+ table{min-width:0;table-layout:fixed;font-size:14px}
+ th,td{padding:8px 4px;overflow-wrap:anywhere;vertical-align:top}
+ .scroll{overflow:visible}
+ dialog{width:calc(100% - 24px);padding:18px;top:12px;bottom:auto;margin:0 auto}
+}
+@media(min-width:600px) and (max-width:1023px){
+ .collection-copy{grid-template-columns:1fr 1fr}
+}
