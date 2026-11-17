@@ -1,0 +1,32 @@
+name: V4.8 responsive interface read-only audit
+on:
+  push:
+    branches: [work/v48-responsive-interface]
+    paths: ['.github/workflows/v48-responsive-audit.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect V4.8 markup and layout hooks (read only)
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('preview/v4.8/index.html')
+          if not p.exists():
+              print('SOURCE_MISSING'); raise SystemExit(1)
+          s=p.read_text(encoding='utf-8')
+          print('SOURCE_BYTES',p.stat().st_size,'LINES',s.count('\n')+1)
+          for needle in ['Leesstand','Overzicht','viewport','@media','orientation','overflow-x','min-height','100vh','Classic','Essential']:
+              matches=list(re.finditer(re.escape(needle),s,re.I))
+              print('MATCH',repr(needle),'COUNT',len(matches))
+              for m in matches[:8]:
+                  print('  LINE',s.count('\n',0,m.start())+1,'CONTEXT',re.sub(r'\s+',' ',s[max(0,m.start()-160):m.end()+180])[:360])
+          print('EXTERNAL_ASSETS')
+          for tag in re.findall(r'<(?:script|link)\b[^>]{0,600}>',s,re.I)[:35]:
+              print(re.sub(r'\s+',' ',tag)[:400])
+          PY
