@@ -34,6 +34,8 @@
   const name=doc.querySelector('.shell')?'Classic':'Essential';
   const classic=name==='Classic';
   const design=doc.querySelector('.shell,.page');
+  // External design links must leave the collection iframe on every layout.
+  doc.querySelectorAll('a.design').forEach(link=>{link.target='_top'});
   const style=doc.createElement('link');style.rel='stylesheet';style.href=new URL('./web/collection-responsive.css',location.href).href;doc.head.append(style);
   const section=doc.createElement('article');section.className='responsive-collection';
   section.innerHTML=`
@@ -61,6 +63,15 @@
   // Use the exact original image, without cropping or changing its pixels.
   section.querySelector('figure').append(doc.querySelector('.master').cloneNode());
   design.before(section);
+  // Keep narrow comparisons readable without squeezing four columns.
+  doc.querySelectorAll('table').forEach(table=>{
+   const labels=Array.from(table.querySelectorAll('tr:first-child th'),cell=>cell.textContent);
+   table.querySelectorAll('tr').forEach(row=>{
+    Array.from(row.querySelectorAll('td')).forEach((cell,index)=>{
+     if(index>0)cell.dataset.column=labels[index]||'';
+    });
+   });
+  });
   section.addEventListener('click',event=>{
    const route=event.target.closest('[data-route]');
    if(route){event.preventDefault();route.dataset.route==='home'?window.goHome():window.openPage(route.dataset.route);return}

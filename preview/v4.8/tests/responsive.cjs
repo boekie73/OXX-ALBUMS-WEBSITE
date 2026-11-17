@@ -6,8 +6,8 @@ const base=process.env.V48_URL||'http://127.0.0.1:8765/preview/v4.8/';
 (async()=>{
  const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']});
  const results=[];
- for(const [width,height] of [[360,800],[412,915],[800,360],[915,412],[1024,768],[1440,900]]){
-  const page=await browser.newPage({viewport:{width,height}});const errors=[],writes=[];
+ for(const [width,height] of [[320,640],[360,800],[412,915],[800,360],[915,412],[768,1024],[1024,768],[1280,720],[1440,900]]){
+  const page=await browser.newPage({viewport:{width,height},isMobile:width<1024,hasTouch:width<1024});const errors=[],writes=[];
   page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(r.method()!=='GET')writes.push(r.url())});
   await page.goto(base);
   await page.waitForFunction(()=>!!window.oxxApplicationAPI);
@@ -20,11 +20,24 @@ const base=process.env.V48_URL||'http://127.0.0.1:8765/preview/v4.8/';
   let f=page.frameLocator('#frame');await f.locator('.responsive-collection').waitFor({state:'attached'});
   const inner=()=>page.frames().find(x=>x.parentFrame());
   await overflow(inner());
+  const external=f.locator(width<=1023?'.responsive-collection a[href="https://oxxdesign.nl"]':'a.design');
+  assert.equal(await external.getAttribute('target'),'_top');
+  if(width<=1023){
+   const navLink=f.locator('[data-route="classic"]');
+   assert.equal(await navLink.evaluate(el=>getComputedStyle(el).borderRadius),'0px');
+   assert(await navLink.evaluate(el=>el.getBoundingClientRect().height>=44));
+  }
   const control=key=>f.locator(width<=1023?`[data-open="${key}"]`:`.hit.${key},.hotspot.${key}`);
   for(const key of ['details','compare','account']){
    await control(key).click();assert(await f.locator(`#${key}`).isVisible());
    if(key==='details'){await f.locator('#details summary').first().click();assert(await f.locator('#details details').first().getAttribute('open')!==null)}
-   await overflow(inner());await f.locator(`#${key} .close`).click();
+   await overflow(inner());
+   assert(await f.locator(`#${key}`).evaluate(el=>el.scrollWidth<=el.clientWidth));
+   if(key==='compare'){
+    assert.equal(await f.locator('#compare tr').nth(1).locator('td').nth(2).getAttribute('data-column'),'Essential');
+    await page.screenshot({path:`${output}/compare-${width}.png`});
+   }
+   await f.locator(`#${key} .close`).click();
   }
   await control('start').click();
   await f.locator('[data-check-application]').click();assert(await f.locator('form').isVisible());
@@ -62,6 +75,7 @@ const base=process.env.V48_URL||'http://127.0.0.1:8765/preview/v4.8/';
    await inner().evaluate(()=>scrollTo(0,document.body.scrollHeight));await page.screenshot({path:`${output}/classic-bottom-360.png`});
    await page.evaluate(()=>goHome());
   }
+  assert.deepEqual(writes,[]);assert.deepEqual(errors,[]);
   results.push(`${width}x${height}: PASS home, Classic, Essential, Premium HOLD, dialogs, validation/review/reset, history, overflow, no writes/errors`);
   await page.close();
  }

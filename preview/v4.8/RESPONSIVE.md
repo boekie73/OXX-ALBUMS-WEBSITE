@@ -7,8 +7,8 @@ Uitsluitend V4.8 op `work/v48-responsive-interface`; geen hosting-, database- of
 - Onder 600 CSS-pixels: verticale homepage en collecties, leesbare HTML-tekst en bediening.
 - 600–1023 pixels: twee kolommen voor homepagekaarten en collectie-informatie, ook in telefoonlandschap.
 - Vanaf 1024 pixels: bestaande volledige desktopontwerpen met hun navigatiehotspots.
-- Geen extra mobiele bovenbalk, Leesstand of Overzicht. De navigatie staat in het collectieontwerp; browser-terug/vooruit werkt via de collectiehash.
-- Het collectie-iframe gebruikt de actuele viewporthoogte en scrolt zelf. Daardoor kunnen informatievensters ook onderaan een lange collectiepagina binnen het scherm openen. Tabellen krijgen op smallere schermen afbreekbare cellen.
+- Geen extra mobiele bovenbalk, Leesstand of Overzicht. De collectienavigatie gebruikt compacte tekstlinks zonder grote afgeronde knoppen; aanraakvlakken blijven minstens 44 pixels hoog. De navigatie staat in het collectieontwerp; browser-terug/vooruit werkt via de collectiehash.
+- Het collectie-iframe gebruikt de actuele viewporthoogte en scrolt zelf. Daardoor kunnen informatievensters ook onderaan een lange collectiepagina binnen het scherm openen. Tabellen krijgen op smallere schermen afbreekbare cellen; onder 480 pixels staan vergelijkingswaarden per onderdeel met zichtbare collectielabels, zodat woorden niet in smalle kolommen worden opgeknipt.
 - Formulieren, validatie, lokale controle/samenvatting en wissen bij sluiten blijven de bestaande implementatie gebruiken. Publieke verzending blijft uitgeschakeld. Premium blijft uitsluitend informatief en niet bestelbaar.
 
 ## Afbeeldingen en concrete beperkingen
@@ -25,9 +25,15 @@ Alle ingebedde afbeeldingsgegevens en beide oorspronkelijke collectie-HTML-docum
 
 ## Controle
 
-Uitgevoerd in lokaal headless Chromium, met Playwright op CSS-viewports 360×800, 412×915, 800×360, 915×412, 1024×768 en 1440×900. Dit is browseremulatie, geen test op fysieke Android- of Windows-apparaten.
+Uitgevoerd in lokaal headless Chromium, met Playwright, mobiele touch-/viewportemulatie onder 1024 pixels, op CSS-viewports 320×640, 360×800, 412×915, 800×360, 915×412, 768×1024, 1024×768, 1280×720 en 1440×900. Dit is browseremulatie, geen test op fysieke Android- of Windows-apparaten.
 
 Gecontroleerd: homepage, Classic/Essential-routes, Premium vanaf homepage en collectie, details/vergelijking/account, validatie van lege velden en limieten 180/181 en 300/301, controleoverzicht/corrigeren, wissen bij sluiten, Escape, browser-terug en interne home-navigatie, horizontale overloop en ontbreken van JavaScript-fouten en schrijvende netwerkverzoeken. Daarnaast rotatie met een geopend formulier en behoud van invoer. Screenshots van homepage, collectie en formulier zijn lokaal visueel bekeken; afbeeldingen en formulierinhoud blijven via verticaal scrollen bereikbaar.
+
+## Oorzaak en aanvullende hercontrole
+
+De oude mobiele bovenbalk (`.mobile-tools`) stond buiten de ontwerpen en verdubbelde hun eigen navigatie. Handmatige Leesstand/Overzicht schakelde op telefoons tussen 100% en een vaste breedte van 780 pixels. Classic en Essential hebben bovendien verschillende rasterverhoudingen en losse hotspotcoördinaten. De eerdere combinatie van 700px-mediaqueries, handmatige schaal en alleen mobiel berekende iframehoogte veroorzaakte afwijkende schaal, horizontale overloop en lege ruimte.
+
+De huidige versie gebruikt gedeelde responsive CSS/HTML-presentatie met de bestaande dialooginhoud. Bij de aanvullende hercontrole is de mobiele navigatie compacter gemaakt en is het doel van de oorspronkelijke OXX Design-links in het collectie-iframe op `_top` gezet, zodat de link ook op desktop de volledige pagina opent. De externe website zelf is niet bezocht of gewijzigd. De test controleert linkdoel, minimaal aanraakvlak, interne overloop van informatievensters en een extra smalle telefoon en tablet. De goedgekeurde rastermasters en oorspronkelijke ingebedde collectiedocumenten blijven ongewijzigd.
 
 Herhalen (Playwright en Chromium vereist):
 

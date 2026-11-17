@@ -11,7 +11,10 @@ summary{min-height:44px;padding:10px 0}
  .responsive-collection h2{font:28px/1.25 Georgia,serif;color:#e5c68a;margin:0 0 14px}
  .responsive-collection nav{display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid #b69a62;padding-bottom:16px;margin-bottom:20px}
  .responsive-collection a,.responsive-collection button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid #b69a62;border-radius:24px;background:#0b2030;color:#f3e9d8;padding:10px 16px;font:16px/1.5 Arial,sans-serif;text-decoration:none;cursor:pointer;max-width:100%}
- .responsive-collection [aria-current]{color:#ffe1a0;border-width:2px}
+ /* The design navigation uses compact text links, not a second pill toolbar. */
+ .responsive-collection nav a,.responsive-collection nav button{border:0;border-radius:0;background:transparent;padding:8px 6px;color:#e5c68a}
+ .responsive-collection nav [aria-current]{text-decoration:underline;text-underline-offset:6px}
+ .responsive-collection nav a:hover,.responsive-collection nav button:hover{text-decoration:underline;text-underline-offset:6px}
  .responsive-collection .gold{background:#d2af73;color:#10202e;font-weight:bold}
  .responsive-collection :focus-visible{outline:3px solid #ffe1a0;outline-offset:2px}
  .collection-copy{display:grid;gap:24px}
@@ -30,4 +33,15 @@ summary{min-height:44px;padding:10px 0}
 }
 @media(min-width:600px) and (max-width:1023px){
  .collection-copy{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:479px){
+ /* Preserve every value; give each comparison item its own labelled row. */
+ table,tbody{display:block;width:100%}
+ tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;border-bottom:1px solid #3d505d;padding:12px 0}
+ tr:has(th){position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);padding:0;border:0}
+ td{display:block;border:0;padding:0;overflow-wrap:normal}
+ td:first-child{grid-column:1/-1;font-weight:bold;color:#e5c68a}
+ td[data-column]::before{content:attr(data-column);display:block;font-weight:bold;color:#e5c68a;margin-bottom:4px}
+ tr:has(td:nth-child(2):last-child){grid-template-columns:1fr}
 }
