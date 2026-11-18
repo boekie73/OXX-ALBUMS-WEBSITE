@@ -50,3 +50,27 @@ dialog button{min-height:44px}
 #home-account:focus-visible{outline:3px solid #ffe1a0;outline-offset:3px}
 body.collection-open #home-account{display:none}
 @media(max-width:350px){#home-account{right:12px;padding-inline:8px}}
+
+/* Homepage FAQ: native disclosure controls retain keyboard and expanded state without JS. */
+#home-faq{max-width:1040px;margin:28px auto 0;padding:24px 24px 40px;color:#f3e9d8}
+#home-faq h2{margin:0 0 20px;font:normal 34px/1.25 Georgia,serif;color:#e5c68a}
+#home-faq .faq-list{border:1px solid #b69a627a;border-radius:18px;background:#091e2e;overflow:hidden}
+#home-faq .faq-item+.faq-item{border-top:1px solid #b69a624d}
+#home-faq summary{display:flex;align-items:center;gap:18px;min-height:56px;padding:16px 20px;list-style:none;cursor:pointer;font:16px/1.5 Arial,sans-serif;color:#e5c68a;touch-action:manipulation}
+#home-faq summary::-webkit-details-marker{display:none}
+#home-faq summary>span:first-child{flex:1;min-width:0}
+#home-faq summary:hover{background:#102b3c}
+#home-faq summary:focus-visible{outline:2px solid #ffe1a0;outline-offset:-4px;border-radius:10px}
+#home-faq .faq-mark{flex:none;width:20px;text-align:center;font:24px/1 Georgia,serif}
+#home-faq .faq-mark::before{content:'+'}
+#home-faq details[open] .faq-mark::before{content:'−'}
+#home-faq details[open]{background:#0c2637}
+#home-faq .faq-answer{padding:0 20px 20px;font:16px/1.7 Arial,sans-serif;color:#f3e9d8}
+#home-faq .faq-answer p{margin:0}
+body.collection-open #home-faq{display:none}
+@media(max-width:599px){
+ #home-faq{margin-top:12px;padding:16px 16px 32px}
+ #home-faq h2{font-size:28px;margin-bottom:16px}
+ #home-faq summary{padding:14px;gap:12px}
+ #home-faq .faq-answer{padding:0 14px 18px}
+}
