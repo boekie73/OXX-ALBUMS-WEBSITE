@@ -1,6 +1,6 @@
 # FAQ V3
 
-Eén homepage-sectie `Veelgestelde vragen`, onder de bestaande vier collectietegels. De elf vragen/antwoorden zijn letterlijk overgenomen uit de laatste goedgekeurde V3-handoff. De nieuwe vergelijkingsvraag staat bovenaan; de eerdere tien vragen zijn behouden.
+Eén homepage-sectie `Veelgestelde vragen`, onder de bestaande vier collectietegels. De elf vragen/antwoorden volgen de goedgekeurde V3-handoff met de V3.1-klanttaalcorrectie hieronder. De vergelijkingsvraag staat bovenaan; betekenis, prijzen, limieten en afspraken blijven behouden.
 
 ## Toegankelijke bediening
 
@@ -30,7 +30,7 @@ De complete statische ZIP bevat vijf websitebestanden direct in de webroot:
 - `web/collection-responsive.css`
 - `web/application-api.mjs`
 
-Alle foto's en logo's zijn in HTML ingebed. Geen PHP, database, tests, documenten of Git-archief uploaden. De API-client blijft expliciet uitgeschakeld; het bestand is wel nodig om de bestaande module-import zonder fout te laden. Upload de complete `web/`-map met behoud van structuur vóór het vervangen van `index.html`. De CSS- en scriptlinks hebben cacheversie `20261118-v3-collections`.
+Alle foto's en logo's zijn in HTML ingebed. Geen PHP, database, tests, documenten of Git-archief uploaden. De API-client blijft expliciet uitgeschakeld; het bestand is wel nodig om de bestaande module-import zonder fout te laden. Upload de complete `web/`-map met behoud van structuur vóór het vervangen van `index.html`. De CSS- en scriptlinks hebben cacheversie `20261118-v31-copy`.
 
 Er is geen automatische publicatie, merge of Vimexx-deploy onderdeel van deze wijziging. De gebruiker beoordeelt screenshots en pakket vóór handmatige upload. De vermelding van privacyafspraken in antwoord 10 is uitsluitend de letterlijk aangeleverde tekst; deze wijziging stelt geen bewaartermijn vast en voegt geen gegevensverwerking toe.
 
@@ -38,6 +38,12 @@ Er is geen automatische publicatie, merge of Vimexx-deploy onderdeel van deze wi
 
 De bestaande vier HTML-tegels worden op alle schermformaten gebruikt: één kolom op smalle telefoons, twee op bredere mobiele schermen en vier op desktop. De oorspronkelijke desktophero met logo, slogan en fotografie blijft bovenaan; de bestaande gouden afsluiter staat onder de tegels. Classic/Essential krijgen de letterlijk aangeleverde kop en tekst in hun bestaande tekstgebied, zonder een los aanvullend tekstblok. Premium en OXX Design behouden hun inhoud en bestemming.
 
-Classic verduidelijkt OXX Engine, OXX-controle, klantbeoordeling en twee inbegrepen aanpassingsrondes. Essential benoemt persoonlijke wensen, favoriete foto's, indeling en drie rondes. Beide vermelden professionele verzorging en dat zelf ontwerpen niet nodig is. Mobiel zijn dit de bestaande HTML-intro en kenmerken. Op desktop wordt uitsluitend het oorspronkelijke raster-introgebied vervangen door een passend HTML-tekstvlak; de maskercontour blijft buiten het album en de prijs-/bedieningsgebieden. De originele afbeeldingen worden niet gewijzigd of vervangen.
+Classic verduidelijkt onze slimme software, persoonlijke controle door ons, klantbeoordeling en twee inbegrepen aanpassingsrondes. Essential benoemt persoonlijke wensen, favoriete foto's, indeling en drie rondes. Beide vermelden professionele verzorging en dat zelf ontwerpen niet nodig is. Mobiel zijn dit de bestaande HTML-intro en kenmerken. Op desktop wordt uitsluitend het oorspronkelijke raster-introgebied vervangen door een passend HTML-tekstvlak; de maskercontour blijft buiten het album en de prijs-/bedieningsgebieden. De originele afbeeldingen worden niet gewijzigd of vervangen.
 
 `tests/collections.cjs` controleert letterlijke tegelcopy, vier zichtbare functionele tegels, header vóór de tegels op desktop, professionele verzorging, correcte rondes, geen afgekapte productintro, één FAQ met elf vragen en geen horizontale overloop. Naast de vijf basisformaten wordt 1024×768 getest om de desktopgrens te controleren. `COLLECTION_SCREENSHOTS` kiest de uitvoermap.
+
+## V3.1 klantentaal
+
+Classic gebruikt de letterlijk goedgekeurde intro (kop en volledige alinea) en de vier goedgekeurde kenmerken. Dit geldt ook op desktop: de oude rasterkop en kenmerken zijn afgedekt met dezelfde klantgerichte HTML-inhoud, zodat oude en nieuwe formuleringen niet tegelijk zichtbaar zijn. De originele beeldgegevens worden niet aangepast. Essential spreekt met “wij” over de professionele verzorging; wensen, ontwerpkeuzes en drie rondes blijven behouden. De FAQ-aanleverzin gebruikt “die wij bij je aanvraag beschikbaar stellen”; de overige tien vragen/antwoorden, prijzen, voorwaarden en limieten blijven behouden.
+
+Interne technische namen horen niet in de klantgerichte tekst. De merknaam blijft wel in logo’s, navigatie, Mijn OXX en functionele merkvermeldingen staan. Formulieren, API-client en klantprocessen veranderen niet. Het volledige pakket bevat dezelfde vijf statische websitebestanden en geen ontwikkelbestanden.

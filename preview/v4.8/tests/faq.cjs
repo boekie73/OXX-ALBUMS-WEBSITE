@@ -13,7 +13,7 @@ const approved = [
   ],
   [
     "Hoe lever ik mijn foto's aan?",
-    "Je levert je foto's digitaal aan via de aanlevermethode die OXX Albums bij je aanvraag beschikbaar stelt. Je hoeft hiervoor geen eigen fotoboek te ontwerpen."
+    "Je levert je foto's digitaal aan via de aanlevermethode die wij bij je aanvraag beschikbaar stellen. Je hoeft hiervoor geen eigen fotoboek te ontwerpen."
   ],
   [
     "Kan ik het fotoboek bekijken voordat het wordt gedrukt?",

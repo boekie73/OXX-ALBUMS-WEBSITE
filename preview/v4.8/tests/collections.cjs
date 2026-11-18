@@ -20,9 +20,18 @@ for(const [w,h] of [[393,852],[852,393],[320,640],[768,1024],[1024,768],[1440,90
   await p.locator(`[data-collection=${c}]`).click();const f=p.frameLocator('#frame');await f.locator('.responsive-collection').waitFor({state:'attached'});const inner=p.frames().find(f=>f.parentFrame());await inner.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})))});
   assert(await inner.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   const copy=f.locator(w<1024?'.hero-copy':'.desktop-intro');assert(await copy.isVisible());
-  const text=await copy.textContent();assert(text.includes(c==='classic'?'OXX Engine':'wensen'));
+  const text=await copy.textContent();assert(text.includes(c==='classic'?'Onze slimme software':'wensen'));
   assert(/professioneel/i.test(text));assert(/zelf.*ontwerpen/.test(text));
   if(w<1024)assert((await f.locator('.collection-features').textContent()).includes((c==='classic'?'2':'3')+' aanpassingsrondes inbegrepen'));
+  assert(!text.includes('OXX Engine'));
+  if(c==='classic'){
+   const heading=f.locator(w<1024?'.hero-copy h2':'.desktop-classic-heading');assert.equal(await heading.textContent(),"Jouw foto's, ons ontwerp.");
+   if(w>=1024)assert(await heading.evaluate(el=>el.scrollHeight<=el.clientHeight+1));
+   const intro=f.locator(w<1024?'.hero-copy>p:first-of-type':'.desktop-intro');
+   assert.equal(await intro.textContent(),"Onze slimme software selecteert en deelt jouw foto's automatisch in. Wij controleren het resultaat en jij beoordeelt het ontwerp. Professioneel verzorgd, zonder dat je zelf een fotoboek hoeft te ontwerpen.");
+   const list=f.locator(w<1024?'.collection-features li':'.desktop-classic-features li');
+   assert.deepEqual(await list.allTextContents(),['Automatische fotoselectie en indeling','Persoonlijke controle door ons','Jij beoordeelt het ontwerp','2 aanpassingsrondes inbegrepen']);
+  }
   const layout=await f.locator('.desktop-intro').evaluate(el=>({scrollHeight:el.scrollHeight,clientHeight:el.clientHeight,box:el.getBoundingClientRect().toJSON()}));
   if(w>=1024)assert(layout.scrollHeight<=layout.clientHeight+1,`desktop intro clipped ${c} ${w}: ${JSON.stringify(layout)}`);
   await inner.evaluate(()=>scrollTo(0,0));await p.screenshot({path:`${output}/${c}-${w}x${h}-boven.png`});

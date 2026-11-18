@@ -18,8 +18,8 @@
   design:{title:'OXX Design',width:330,photo:[8,110,314,130],lines:['Ook voor andere creatieve projecten'],cta:'Ontdek OXX Design →'}
  };
  const collectionCopy={
-  classic:{heading:'Automatisch samengesteld fotoboek',text:"Onze slimme software selecteert en rangschikt jouw foto's automatisch tot een stijlvol fotoboek. Wij controleren het resultaat en jij beoordeelt het ontwerp.",product:"OXX Engine selecteert en deelt jouw foto's automatisch in. OXX Albums controleert het resultaat en jij beoordeelt het ontwerp. Professioneel verzorgd, zonder dat je zelf een fotoboek hoeft te ontwerpen.",desktop:"OXX Engine selecteert en deelt je foto's automatisch in. OXX Albums controleert; jij beoordeelt. Twee aanpassingsrondes inbegrepen. Professioneel verzorgd, zonder zelf te ontwerpen."},
-  essential:{heading:'Meer persoonlijke invloed op jouw fotoboek',text:"Wij verzorgen het ontwerp, met extra aandacht voor jouw wensen, favoriete foto's en persoonlijke indeling. Je krijgt meer ruimte voor aanpassingen.",product:"Een professioneel verzorgd ontwerp met meer ruimte voor jouw persoonlijke wensen en ontwerpkeuzes, favoriete foto's en indeling. Je hoeft zelf geen fotoboek te ontwerpen.",desktop:"Professioneel verzorgd, met meer ruimte voor jouw wensen, favoriete foto's en persoonlijke indeling. Drie aanpassingsrondes inbegrepen. Je hoeft zelf niet te ontwerpen."}
+  classic:{heading:'Automatisch samengesteld fotoboek',text:"Onze slimme software selecteert en rangschikt jouw foto's automatisch tot een stijlvol fotoboek. Wij controleren het resultaat en jij beoordeelt het ontwerp.",product:"Onze slimme software selecteert en deelt jouw foto's automatisch in. Wij controleren het resultaat en jij beoordeelt het ontwerp. Professioneel verzorgd, zonder dat je zelf een fotoboek hoeft te ontwerpen."},
+  essential:{heading:'Meer persoonlijke invloed op jouw fotoboek',text:"Wij verzorgen het ontwerp, met extra aandacht voor jouw wensen, favoriete foto's en persoonlijke indeling. Je krijgt meer ruimte voor aanpassingen.",product:"Wij verzorgen je fotoboek professioneel, met meer ruimte voor jouw persoonlijke wensen en ontwerpkeuzes, favoriete foto's en indeling. Je hoeft zelf geen fotoboek te ontwerpen.",desktop:"Wij verzorgen het ontwerp professioneel, met ruimte voor jouw wensen, favoriete foto's en persoonlijke indeling. Drie aanpassingsrondes inbegrepen. Je hoeft zelf niet te ontwerpen."}
  };
  const homeHeader=document.createElement('header');homeHeader.className='mobile-home-header';
  homeHeader.append(artwork(document,logoSource,512,[140,6,176,104],'OXX Albums','brand-logo'));
@@ -78,7 +78,7 @@
   const design=doc.querySelector('.shell,.page');
   // External design links must leave the collection iframe on every layout.
   doc.querySelectorAll('a.design').forEach(link=>{link.target='_top'});
-  const style=doc.createElement('link');style.rel='stylesheet';style.href=new URL('./web/collection-responsive.css?v=20261118-v3-collections',location.href).href;doc.head.append(style);
+  const style=doc.createElement('link');style.rel='stylesheet';style.href=new URL('./web/collection-responsive.css?v=20261118-v31-copy',location.href).href;doc.head.append(style);
   const section=doc.createElement('article');section.className='responsive-collection';
   section.innerHTML=`
    <header class="collection-header"><a class="collection-brand" href="#home" data-route="home" aria-label="Terug naar OXX Albums"></a><h1>${name}</h1><nav aria-label="Collectienavigatie">
@@ -90,13 +90,13 @@
     <button type="button" data-open="account">Mijn OXX</button>
    </nav></header>
    <div class="collection-hero"><div class="hero-photo"></div><section class="hero-copy">
-    <h2>${classic?'Jouw foto’s, ons ontwerp.':'Meer mogelijkheden, jouw stijl.'}</h2>
+    <h2>${classic?"Jouw foto's, ons ontwerp.":'Meer mogelijkheden, jouw stijl.'}</h2>
     <p>${distinction.product}</p>
     <p class="price">${classic?'Vanaf €99':'Vanaf €129'} <span>Introductieprijs · Normaal vanaf ${classic?'€109':'€149'}</span></p>
     <button class="gold" type="button" data-open="start">Start met ${name} →</button>
    </section></div>
    <section class="collection-features"><h2>Inbegrepen</h2>
-    <ul>${(classic?['Automatische fotoselectie en indeling via OXX Engine','Controle door OXX Albums','Jij beoordeelt het ontwerp','2 aanpassingsrondes inbegrepen']:['Meer ruimte voor persoonlijke wensen en ontwerpkeuzes','Extra aandacht voor favoriete foto’s en indeling','3 aanpassingsrondes inbegrepen']).map(x=>`<li>${x}</li>`).join('')}</ul>
+    <ul>${(classic?['Automatische fotoselectie en indeling','Persoonlijke controle door ons','Jij beoordeelt het ontwerp','2 aanpassingsrondes inbegrepen']:['Meer ruimte voor persoonlijke wensen en ontwerpkeuzes','Extra aandacht voor favoriete foto’s en indeling','3 aanpassingsrondes inbegrepen']).map(x=>`<li>${x}</li>`).join('')}</ul>
    </section>
    <section class="collection-more"><div class="lighthouse-photo"></div><div>
     <h2>Meer weten?</h2><p>Bekijk de formaten, werkwijze en extra mogelijkheden.</p>
@@ -109,7 +109,11 @@
   const master=doc.querySelector('.master');
   section.querySelector('.lighthouse-photo').append(artwork(doc,master.src,classic?1404:1536,classic?[0,985,450,420]:[0,710,390,300],'Vuurtoren bij zonsondergang'));
   // Replace only the existing raster introduction, away from photography/prices.
-  const desktopIntro=doc.createElement('p');desktopIntro.className='desktop-intro '+name.toLowerCase();desktopIntro.textContent=distinction.desktop;design.append(desktopIntro);
+  const desktopIntro=doc.createElement('p');desktopIntro.className='desktop-intro '+name.toLowerCase();desktopIntro.textContent=classic?distinction.product:distinction.desktop;design.append(desktopIntro);
+  if(classic){
+   const heading=doc.createElement('h2');heading.className='desktop-classic-heading';heading.textContent="Jouw foto's, ons ontwerp.";design.append(heading);
+   const features=section.querySelector('.collection-features').cloneNode(true);features.className='desktop-classic-features';design.append(features);
+  }
   design.before(section);
   // Keep narrow comparisons readable without squeezing four columns.
   doc.querySelectorAll('table').forEach(table=>{
