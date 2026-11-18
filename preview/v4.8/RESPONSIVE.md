@@ -1,46 +1,63 @@
-# V4.8 responsive interface
+# V4.8 responsive interface — visuele optimalisatie
 
-Uitsluitend V4.8 op `work/v48-responsive-interface`; geen hosting-, database- of backendwijzigingen.
+Branch: `work/v48-responsive-interface`. Nulmeting: `faf2d7af9a0fc93ed5033a514fbc5d69918531d4` en het bijbehorende Chromium-bevindingenrapport.
 
-## Indeling
+## Huidige indeling
 
-- Onder 600 CSS-pixels: verticale homepage en collecties, leesbare HTML-tekst en bediening.
-- 600–1023 pixels: twee kolommen voor homepagekaarten en collectie-informatie, ook in telefoonlandschap.
-- Vanaf 1024 pixels: bestaande volledige desktopontwerpen met hun navigatiehotspots.
-- Geen extra mobiele bovenbalk, Leesstand of Overzicht. De collectienavigatie gebruikt compacte tekstlinks zonder grote afgeronde knoppen; aanraakvlakken blijven minstens 44 pixels hoog. De navigatie staat in het collectieontwerp; browser-terug/vooruit werkt via de collectiehash.
-- Het collectie-iframe gebruikt de actuele viewporthoogte en scrolt zelf. Daardoor kunnen informatievensters ook onderaan een lange collectiepagina binnen het scherm openen. Tabellen krijgen op smallere schermen afbreekbare cellen; onder 480 pixels staan vergelijkingswaarden per onderdeel met zichtbare collectielabels, zodat woorden niet in smalle kolommen worden opgeknipt.
-- Formulieren, validatie, lokale controle/samenvatting en wissen bij sluiten blijven de bestaande implementatie gebruiken. Publieke verzending blijft uitgeschakeld. Premium blijft uitsluitend informatief en niet bestelbaar.
+- Onder 600 CSS-pixels: verticale homepage en collecties met leesbare HTML-tekst en echte bediening.
+- 600–1023 pixels: twee homepagekolommen, brede collectiehero en gedeelde structuur voor Classic en Essential.
+- Vanaf 1024 pixels: ongewijzigde goedgekeurde desktopmasters, oorspronkelijke hotspots en bestaande Essential-correctie.
+- Geen extra bovenbalk, Leesstand of Overzicht. Compacte navigatie staat binnen de collecties. Logo en home-link gaan terug naar de homepage; browser-terug/vooruit gebruikt collectiehashes.
+- De homepageheader gebruikt het oorspronkelijke OXX Albums-logo met losse tekst. In telefoonlandschap is de header minder dan 130 CSS-pixels hoog, in plaats van circa 253 pixels in de nulmeting.
+- Premium blijft de bestaande informatieve collectiekaart met de oorspronkelijke kenmerken, fotografie, ON HOLD-vermelding en informatievenster. Er is geen nieuwe Premium-productpagina of bestelroute.
 
-## Afbeeldingen en concrete beperkingen
+## Oplossing van de rasterdoublures
 
-De goedgekeurde Classic- en Essential-pagina's zijn rasterafbeeldingen: navigatie, koppen, beschrijvingen, prijzen, kenmerken en knoppen zitten in de pixels. CSS kan die tekst niet laten omlopen. Alleen verkleinen zou op 360 pixels tekst van ongeveer 5–8 pixels opleveren. Daarom heeft de mobiele/tabletweergave leesbare HTML-equivalenten van de zichtbare producttekst en knoppen; details, voorwaarden en prijzen in informatievensters blijven behouden.
+De oorspronkelijke websiteontwerpen bevatten fotografie, teksten, prijzen, navigatie en getekende knoppen in één rasterafbeelding. De eerdere responsive versie zette leesbare HTML vóór/onder een complete kopie van dat beeld. Dat veroorzaakte herhaling en liet de kleine rastertekst zichtbaar.
 
-De volledige originele collectieafbeelding staat ongesneden onder die HTML-informatie als referentie, expliciet met bijschrift. **De ingebakken tekst in deze referentieafbeelding is op telefoons nog klein en niet zelfstandig goed leesbaar.** Dit is geen volledig herbouwde fotografische compositie. De productinformatie is erboven en in de bestaande informatievensters leesbaar beschikbaar. Een volledig heringedeeld ontwerp met losse foto's en logo's vereist oorspronkelijke losse ontwerpbestanden; die ontbreken in deze repository.
+De mobiele presentatie toont die complete referentiebeelden niet meer. In plaats daarvan selecteren CSS-weergavevensters nauwkeurig omschreven fotogedeelten, logo's en kenmerkeniconen uit de **bestaande, ongewijzigde bronafbeeldingen**. Er worden geen nieuwe afbeeldingbestanden gegenereerd, pixels geretoucheerd, AI-beelden gemaakt of logo's vervangen. De bronbestanden en alle ingebedde afbeeldingen blijven byte-identiek.
 
-Essential bevat in de rastermaster foutief **2 herstelrondes**. De bestaande desktop-overlay corrigeert dit naar **3**; de responsive HTML en het bestaande detailvenster vermelden eveneens 3. De ongewijzigde referentieafbeelding zelf bevat nog 2. Dat beeld is bewust niet stilzwijgend aangepast.
+- Homepage: dezelfde vier collectietegels, ieder met het eigen bestaande beeld, eenmalige kenmerken en één echte HTML-actie. De bestaande goudkleurige iconen blijven zichtbaar als uitsneden zonder de ingebakken begeleidende tekst.
+- Classic/Essential: gedeelde header, albumfotografie uit de eigen bestaande collectiekaart, eenmalige tekst/prijzen/Start-knop, kenmerken en een detailsectie met de eigen vuurtorenfotografie uit de oorspronkelijke master.
+- Essential: mobiel uitsluitend **3 herstelrondes inbegrepen**. De oude rastervermelding **2** is geen deel van de gekozen mobiele beeldvensters. Er staat geen volledige referentieafbeelding meer onderaan waarin die fout alsnog zichtbaar is. Op desktop blijft de reeds bestaande correctie-overlay met 3 behouden.
+- De selectie van fotografische regio's is een bewuste responsive hercompositie. De oorspronkelijke hele afbeeldingen blijven behouden in de desktoppresentatie en in de bron; mobiel zijn tekstregio's daaruit bewust niet zichtbaar. De volledige albums binnen de gekozen kaartfoto's blijven zichtbaar.
 
-De mobiele homepage gebruikt de reeds bestaande uitsneden: header 512×360, Classic/Premium 363×401, Essential 359×401 en Design 330×401. De header bevat slechts het oorspronkelijke logo/tekstgedeelte, niet de volledige brede homepagefoto. Deze bronuitsneden blijven ongewijzigd en worden volledig getoond; de kaartteksten zijn aanvullend in HTML beschikbaar. De desktophomepage behoudt de brede originele afbeelding. Premium heeft in V4.8 geen zelfstandige collectiepagina: de bestaande kaart en het informatievenster blijven behouden, met een leesbare ON HOLD-vermelding bij de mobiele kaart.
+Prijzen, voorwaarden en productinformatie zijn inhoudelijk behouden. Alleen de goedgekeurde Essential-correctie (3 herstelrondes) wordt consequent toegepast. Informatie in een apart, door de gebruiker geopend vergelijkings- of detailvenster kan uiteraard terugkomen.
 
-Alle ingebedde afbeeldingsgegevens en beide oorspronkelijke collectie-HTML-documenten zijn byte voor byte vergeleken met de uitgangscommit en behouden. Geen afbeeldingen of logo's gegenereerd of bewerkt. De bestaande donkerblauwe/gouden kleuren worden gebruikt.
+## Formulieren en veiligheid
 
-## Controle
+`index.html`, inclusief beide complete ingebedde collectiedocumenten, formulieren, validatie, dialooginhoud en klantprocescode, is byte-identiek aan de nulmeting. `web/application-api.mjs` is eveneens ongewijzigd; `enabled` blijft `false` en `send()` weigert verzending. Geen betalings- of backendwijzigingen, databases, externe diensten of klantgegevens.
 
-Uitgevoerd in lokaal headless Chromium, met Playwright, mobiele touch-/viewportemulatie onder 1024 pixels, op CSS-viewports 320×640, 360×800, 412×915, 800×360, 915×412, 768×1024, 1024×768, 1280×720 en 1440×900. Dit is browseremulatie, geen test op fysieke Android- of Windows-apparaten.
+Het iframe gebruikt de actuele viewporthoogte en scrolt intern. Vensters kunnen ook onderaan de collectie binnen het scherm openen. Vergelijkingstabellen krijgen onder 480 pixels zichtbare collectielabels per onderdeel, met behoud van alle waarden.
 
-Gecontroleerd: homepage, Classic/Essential-routes, Premium vanaf homepage en collectie, details/vergelijking/account, validatie van lege velden en limieten 180/181 en 300/301, controleoverzicht/corrigeren, wissen bij sluiten, Escape, browser-terug en interne home-navigatie, horizontale overloop en ontbreken van JavaScript-fouten en schrijvende netwerkverzoeken. Daarnaast rotatie met een geopend formulier en behoud van invoer. Screenshots van homepage, collectie en formulier zijn lokaal visueel bekeken; afbeeldingen en formulierinhoud blijven via verticaal scrollen bereikbaar.
+## Validatie
 
-## Oorzaak en aanvullende hercontrole
+Chromium/Playwright, met mobiele viewport-/touch-emulatie waar toepasselijk:
 
-De oude mobiele bovenbalk (`.mobile-tools`) stond buiten de ontwerpen en verdubbelde hun eigen navigatie. Handmatige Leesstand/Overzicht schakelde op telefoons tussen 100% en een vaste breedte van 780 pixels. Classic en Essential hebben bovendien verschillende rasterverhoudingen en losse hotspotcoördinaten. De eerdere combinatie van 700px-mediaqueries, handmatige schaal en alleen mobiel berekende iframehoogte veroorzaakte afwijkende schaal, horizontale overloop en lege ruimte.
+- Android staand: 393×852.
+- Android liggend: 852×393.
+- Klein Android: 320×640.
+- Tablet: 768×1024.
+- Desktop: 1440×900.
 
-De huidige versie gebruikt gedeelde responsive CSS/HTML-presentatie met de bestaande dialooginhoud. Bij de aanvullende hercontrole is de mobiele navigatie compacter gemaakt en is het doel van de oorspronkelijke OXX Design-links in het collectie-iframe op `_top` gezet, zodat de link ook op desktop de volledige pagina opent. De externe website zelf is niet bezocht of gewijzigd. De test controleert linkdoel, minimaal aanraakvlak, interne overloop van informatievensters en een extra smalle telefoon en tablet. De goedgekeurde rastermasters en oorspronkelijke ingebedde collectiedocumenten blijven ongewijzigd.
+Gecontroleerd: vier homepagekaarten; interne home-/Classic-/Essential-navigatie; logo-teruglink; browser-terug; Premium ON HOLD; details, vergelijking en account; lege/ongeldige velden en grenzen 180/181 en 300/301; lokaal controleoverzicht/corrigeren; wissen bij sluiten; Escape; rotatie met behoud van invoer; horizontale overloop; geen JavaScript-fouten of schrijvende netwerkverzoeken. De OXX Design-links vanaf homepage en beide collecties worden aangeklikt met een door Playwright lokaal onderschepte bestemming, zodat het doelvenster werkelijk wordt gecontroleerd zonder de externe website te bezoeken. Dit is geen beschikbaarheidstest van oxxdesign.nl.
 
-Herhalen (Playwright en Chromium vereist):
+Gerichte regressiecontroles: geen volledige `.master`-referentiebeelden in de mobiele collectie; één Start-bediening; Essential alleen 3 herstelrondes in de mobiele presentatie; geen volledige oude tegelafbeelding met rastertekst naast de HTML; compacte landschapheader; minimaal 44 pixels hoge navigatievlakken.
+
+De nieuwe screenshots komen uit werkelijk gerenderde Chromium-pagina's. De volledige iframe-opnamen worden uit ongeschaalde scrollscreenshots op hun gemeten scrollposities samengesteld; overzichten zijn uitsluitend verkleinde browseropnamen. Geen mock-ups of AI-ontwerpen.
+
+Herhalen (Playwright en Chromium geïnstalleerd):
 
 ```sh
-# Vanuit repositoryroot, in een aparte terminal:
+# Vanuit de repositoryroot in een aparte terminal:
 python3 -m http.server 8765 --bind 127.0.0.1
 node preview/v4.8/tests/responsive.cjs
 ```
 
-Optioneel: `V48_URL`, `CHROMIUM_PATH`, `V48_SCREENSHOTS`. Screenshots gaan standaard naar `/tmp/v48-checks`, buiten de repository. Geen externe dienst of hosting nodig.
+Optioneel: `V48_URL`, `CHROMIUM_PATH`, `V48_SCREENSHOTS`. Testuitvoer staat standaard buiten de repository in `/tmp/v48-checks`.
+
+## Grenzen
+
+De oorspronkelijke kaartfoto's zijn circa 330–363 pixels breed. Ze worden niet door AI opgeschaald en kunnen op een groter tablet of een toestel met hoge pixeldichtheid wat zachter ogen dan nieuwe hoge-resolutie bronfoto's. De logo's behouden hun oorspronkelijke donkere achtergrond. Er zijn geen fysieke Android- of Windows-apparaten getest: dit is Chromium op Linux met de opgegeven viewports.
+
+De oorspronkelijke rastertekst op desktop blijft van het bronontwerp afhankelijk; inhoudelijk is deze niet herbouwd. Mobiel worden geen kleine complete referentieontwerpen of de foutieve Essential-vermelding meer aangeboden. Livewebsite, main en Vimexx blijven onaangeroerd; uitsluitend de ontwikkelbranch mag worden gepusht.
