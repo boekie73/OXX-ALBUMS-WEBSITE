@@ -44,3 +44,9 @@ dialog button{min-height:44px}
  .eyebrow{font-size:10px;margin-bottom:3px}
  .home-tagline{font-size:20px}
 }
+
+/* One homepage-only entrance to the existing Mijn OXX information dialog. */
+#home-account{position:absolute;top:12px;right:max(16px,calc((100vw - 1536px)/2 + 16px));z-index:5;min-height:44px;padding:8px 12px;border:1px solid #b69a62;border-radius:24px;background:#071a29ed;color:#e5c68a;font:14px/1.4 Arial,sans-serif;cursor:pointer;touch-action:manipulation}
+#home-account:focus-visible{outline:3px solid #ffe1a0;outline-offset:3px}
+body.collection-open #home-account{display:none}
+@media(max-width:350px){#home-account{right:12px;padding-inline:8px}}
