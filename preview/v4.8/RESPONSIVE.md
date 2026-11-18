@@ -6,7 +6,7 @@ Branch: `work/v48-responsive-interface`. Nulmeting: `faf2d7af9a0fc93ed5033a514fb
 
 - Onder 600 CSS-pixels: verticale homepage en collecties met leesbare HTML-tekst en echte bediening.
 - 600–1023 pixels: twee homepagekolommen, brede collectiehero en gedeelde structuur voor Classic en Essential.
-- Vanaf 1024 pixels: ongewijzigde goedgekeurde desktopmasters, oorspronkelijke hotspots en bestaande Essential-correctie.
+- Vanaf 1024 pixels: oorspronkelijke brede hero en vier bestaande HTML-tegels. Productmasters behouden hun fotografie, hotspots, prijzen en bestaande Essential-correctie; uitsluitend de introductietekst krijgt een HTML-verduidelijking.
 - Geen extra bovenbalk, Leesstand of Overzicht. Compacte navigatie staat binnen de collecties. Logo en home-link gaan terug naar de homepage; browser-terug/vooruit gebruikt collectiehashes.
 - De homepageheader gebruikt het oorspronkelijke OXX Albums-logo met losse tekst. In telefoonlandschap is de header minder dan 130 CSS-pixels hoog, in plaats van circa 253 pixels in de nulmeting.
 - Premium blijft de bestaande informatieve collectiekaart met de oorspronkelijke kenmerken, fotografie, ON HOLD-vermelding en informatievenster. Er is geen nieuwe Premium-productpagina of bestelroute.
@@ -26,7 +26,7 @@ Prijzen, voorwaarden en productinformatie zijn inhoudelijk behouden. Alleen de g
 
 ## Formulieren en veiligheid
 
-`index.html`, inclusief beide complete ingebedde collectiedocumenten, formulieren, validatie, dialooginhoud en klantprocescode, is byte-identiek aan de nulmeting. `web/application-api.mjs` is eveneens ongewijzigd; `enabled` blijft `false` en `send()` weigert verzending. Geen betalings- of backendwijzigingen, databases, externe diensten of klantgegevens.
+De beide complete ingebedde collectiedocumenten, formulieren, validatie, dialooginhoud en klantprocescode zijn byte-identiek aan de nulmeting. De buitenste homepage bevat de goedgekeurde FAQ en Mijn OXX-toegang; de responsive presentatielaag verduidelijkt het collectieverschil. `web/application-api.mjs` is eveneens ongewijzigd; `enabled` blijft `false` en `send()` weigert verzending. Geen betalings- of backendwijzigingen, databases, externe diensten of klantgegevens.
 
 Het iframe gebruikt de actuele viewporthoogte en scrolt intern. Vensters kunnen ook onderaan de collectie binnen het scherm openen. Vergelijkingstabellen krijgen onder 480 pixels zichtbare collectielabels per onderdeel, met behoud van alle waarden.
 
@@ -60,4 +60,4 @@ Optioneel: `V48_URL`, `CHROMIUM_PATH`, `V48_SCREENSHOTS`. Testuitvoer staat stan
 
 De oorspronkelijke kaartfoto's zijn circa 330–363 pixels breed. Ze worden niet door AI opgeschaald en kunnen op een groter tablet of een toestel met hoge pixeldichtheid wat zachter ogen dan nieuwe hoge-resolutie bronfoto's. De logo's behouden hun oorspronkelijke donkere achtergrond. Er zijn geen fysieke Android- of Windows-apparaten getest: dit is Chromium op Linux met de opgegeven viewports.
 
-De oorspronkelijke rastertekst op desktop blijft van het bronontwerp afhankelijk; inhoudelijk is deze niet herbouwd. Mobiel worden geen kleine complete referentieontwerpen of de foutieve Essential-vermelding meer aangeboden. Livewebsite, main en Vimexx blijven onaangeroerd; uitsluitend de ontwikkelbranch mag worden gepusht.
+De oorspronkelijke rastertekst op desktop blijft grotendeels van het bronontwerp afhankelijk. De collectie-intro is als leesbare HTML opnieuw gezet met de goedgekeurde verduidelijking; prijstekst en overige ontwerpgebieden blijven behouden. Mobiel worden geen kleine complete referentieontwerpen of de foutieve Essential-vermelding meer aangeboden. Livewebsite, main en Vimexx blijven onaangeroerd; uitsluitend de ontwikkelbranch mag worden gepusht.

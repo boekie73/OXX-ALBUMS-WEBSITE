@@ -74,3 +74,32 @@ body.collection-open #home-faq{display:none}
  #home-faq summary{padding:14px;gap:12px}
  #home-faq .faq-answer{padding:0 14px 18px}
 }
+
+/* The same four existing cards carry readable collection copy on every viewport. */
+.card-distinction{display:block;font:normal 20px/1.3 Georgia,serif;color:#e5c68a}
+.card-description{display:block;font:16px/1.6 Arial,sans-serif}
+.desktop-home-flourish{display:none}
+body.collection-open .desktop-home-flourish{display:none!important}
+@media(min-width:1024px){
+ #home{aspect-ratio:1536/390;overflow:hidden}
+ #home>img{position:absolute;top:0;left:0}
+ #home .hit{display:none}
+ #mobile-home{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;max-width:1536px;margin:0 auto;padding:0 clamp(24px,3.2vw,49px)}
+ .mobile-home-header{display:none}
+ .mobile-card{display:flex;flex-direction:column;width:100%;max-width:430px;margin:0;justify-self:center;padding:20px 16px 16px;border:1px solid #b69a62;border-radius:22px;background:radial-gradient(ellipse at top,#133447 0%,#071b29 65%);box-shadow:inset 0 0 0 3px #061624,0 8px 24px #0003;color:#f3e9d8;text-decoration:none;font:16px/1.5 Arial,sans-serif;text-align:left;cursor:pointer}
+ .card-title{display:block;text-align:center;font:italic 34px/1.2 Georgia,serif;color:#f3e9d8;margin-bottom:14px}
+ .card-title::after{content:'';display:block;width:84px;height:1px;margin:10px auto 0;background:linear-gradient(90deg,transparent,#e5c68a,transparent)}
+ .card-photo{width:100%;margin-bottom:16px}
+ .design-logo{width:200px;max-width:100%;margin:0 auto 14px}
+ .card-copy{display:flex;flex:1;flex-direction:column;gap:10px;width:100%}
+ .card-feature{display:flex;gap:10px;align-items:center}
+ .card-feature>span:last-child{flex:1;min-width:0}
+ .feature-icon{width:27px;flex:none}
+ .card-cta{display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px 12px;margin-top:auto;border:1px solid #e5c68a;border-radius:28px;background:linear-gradient(115deg,#efd298,#d8ad63 55%,#f4dca9);color:#142433;font-weight:bold;text-align:center}
+ .hold-status{display:block;font-size:14px;color:#e5c68a;letter-spacing:.03em}
+ .mobile-card:focus-visible{outline:3px solid #ffe1a0;outline-offset:3px}
+ .mobile-card{padding:18px 14px 16px}
+ .card-title{font-size:32px}
+ .card-description{font-size:15px}
+ .desktop-home-flourish{display:block;width:100%;max-width:1536px;margin:auto}
+}

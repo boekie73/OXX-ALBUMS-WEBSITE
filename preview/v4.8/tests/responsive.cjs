@@ -22,9 +22,9 @@ const base=process.env.V48_URL||'http://127.0.0.1:8765/preview/v4.8/';
    if(width===852)assert(await page.locator('.mobile-home-header').evaluate(el=>el.getBoundingClientRect().height<130));
   }
   await overflow(page);await page.screenshot({path:`${output}/home-${width}.png`,fullPage:true});
-  await page.locator(width<=1023?'[data-collection="premium"]':'#home .premium').click();
+  await page.locator('[data-collection="premium"]').click();
   assert(await page.locator('#premiumInfo').isVisible());await page.locator('#premiumInfo button').click();
-  await page.locator(width<=1023?'[data-collection="classic"]':'#home .classic').click();
+  await page.locator('[data-collection="classic"]').click();
   let f=page.frameLocator('#frame');await f.locator('.responsive-collection').waitFor({state:'attached'});
   const inner=()=>page.frames().find(x=>x.parentFrame());
   await overflow(inner());
@@ -68,9 +68,9 @@ const base=process.env.V48_URL||'http://127.0.0.1:8765/preview/v4.8/';
   await f.locator('.responsive-collection h1').filter({hasText:'Essential'}).waitFor({state:'attached'});
   await overflow(inner());
   if(width<1024){
-   assert.equal(await f.locator('.collection-features').getByText('3 herstelrondes inbegrepen',{exact:true}).count(),1);
+   assert.equal(await f.locator('.collection-features').getByText('3 aanpassingsrondes inbegrepen',{exact:true}).count(),1);
    assert.equal(await f.locator('.responsive-collection .master').count(),0);
-   assert.equal(await f.locator('.responsive-collection').getByText('2 herstelrondes inbegrepen',{exact:true}).count(),0);
+   assert.equal(await f.locator('.responsive-collection').getByText('2 aanpassingsrondes inbegrepen',{exact:true}).count(),0);
   }
   await f.locator(width<=1023?'[data-premium]':'.hotspot.premium').click();assert(await page.locator('#premiumInfo').isVisible());await page.locator('#premiumInfo button').click();
   await control('start').click();await f.locator('[name=customerName]').fill('Test');await f.locator('[name=email]').fill('test@example.com');await f.locator('[name=bookFormat]').selectOption({index:1});
@@ -107,7 +107,7 @@ const base=process.env.V48_URL||'http://127.0.0.1:8765/preview/v4.8/';
    await page.goto(base+(routeName==='home'?'':'#'+routeName));
    await page.waitForFunction(()=>!!window.oxxApplicationAPI);
    if(routeName==='home'){
-    await page.locator(width<1024?'[data-collection="design"]':'#home .design').click();
+    await page.locator('[data-collection="design"]').click();
    }else{
     const designLink=f.locator(width<1024?'.responsive-collection a[href="https://oxxdesign.nl"]':'a.design');
     await designLink.click();

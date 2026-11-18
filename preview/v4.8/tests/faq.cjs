@@ -1,5 +1,9 @@
 const approved = [
   [
+    "Wat is het verschil tussen Classic en Essential?",
+    "Classic wordt automatisch samengesteld met onze slimme software. Wij controleren het ontwerp voordat jij het beoordeelt. Essential biedt meer ruimte voor jouw persoonlijke wensen, favoriete foto's en aanpassingen. Bij beide collecties verzorgen wij het fotoboek voor je."
+  ],
+  [
     "Hoe werkt het bestellen van een fotoboek?",
     "Je kiest Classic of Essential en levert je foto's en wensen aan. Wij maken een persoonlijk ontwerp dat je eerst kunt beoordelen. Pas na jouw definitieve akkoord en betaling gaat het fotoboek in productie."
   ],
@@ -59,9 +63,9 @@ fs.mkdirSync(output,{recursive:true});
   await page.goto(base);await page.waitForFunction(()=>!!window.oxxApplicationAPI);
   await page.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})))});
   const faq=page.locator('#home-faq');assert.equal(await faq.count(),1);
-  assert.equal(await faq.locator('details').count(),10);
+  assert.equal(await faq.locator('details').count(),11);
   assert.equal(await faq.locator('details[open]').count(),0);
-  const host=width<1024?'#mobile-home':'#home-scroll';
+  const host='#mobile-home';
   assert(await page.evaluate(selector=>document.querySelector('#home-faq').getBoundingClientRect().top>=document.querySelector(selector).getBoundingClientRect().bottom,host));
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   assert.equal(await page.getByRole('button',{name:'Mijn OXX',exact:true}).count(),1);
@@ -76,7 +80,7 @@ fs.mkdirSync(output,{recursive:true});
    const state=nodes.flatMap(n=>n.properties||[]).find(p=>p.name==='expanded');
    assert(state,'Native accessibility expanded state missing');return state.value.value;
   }
-  for(let index=0;index<10;index++){
+  for(let index=0;index<approved.length;index++){
    const summary=faq.locator('summary').nth(index),answer=page.locator('#faq-answer-'+(index+1));
    assert.equal(await summary.locator('span').first().textContent(),approved[index][0]);
    assert.equal(await answer.locator('p').textContent(),approved[index][1]);
@@ -90,13 +94,13 @@ fs.mkdirSync(output,{recursive:true});
   }
   await faq.locator('summary').nth(0).click();await faq.locator('summary').nth(1).click();
   assert.equal(await faq.locator('details[open]').count(),2);
-  await faq.locator('summary').nth(1).click();await faq.locator('summary').nth(9).click();
+  await faq.locator('summary').nth(1).click();await faq.locator('summary').nth(10).click();
   assert.equal(await faq.locator('details[open]').count(),2);
   await faq.screenshot({path:`${output}/faq-${width}x${height}-open.png`});
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   // The FAQ is homepage-only; collection navigation and existing dialogs are retained.
   for(const collection of ['classic','essential']){
-   await page.locator(width<1024?`[data-collection=${collection}]`:`#home .${collection}`).click();
+   await page.locator(`[data-collection=${collection}]`).click();
    const f=page.frameLocator('#frame');await f.locator('.responsive-collection').waitFor({state:'attached'});
    assert(!(await faq.isVisible()));assert(!(await page.locator('#home-account').isVisible()));
    for(const key of ['compare','account']){
@@ -105,11 +109,11 @@ fs.mkdirSync(output,{recursive:true});
    }
    await f.locator(width<1024?'nav [data-route=home]':'.home,.logo').click();assert(await faq.isVisible());
   }
-  await page.locator(width<1024?'[data-collection=premium]':'#home .premium').click();
+  await page.locator('[data-collection=premium]').click();
   assert(await page.locator('#premiumInfo').isVisible());assert((await page.locator('#premiumInfo').textContent()).includes('niet bestelbaar'));await page.locator('#premiumInfo button').click();
   assert.equal(await page.evaluate(()=>window.oxxApplicationAPI.enabled),false);
   assert.deepEqual(errors,[]);assert.deepEqual(failures,[]);assert.deepEqual(writes,[]);
-  report.push({width,height,result:'PASS',literalQuestionsAndAnswers:10,nativeKeyboardAndExpandedState:true,independentPanels:true,existingNavigationAndAccount:true,noHorizontalOverflow:true});
+  report.push({width,height,result:'PASS',literalQuestionsAndAnswers:11,nativeKeyboardAndExpandedState:true,independentPanels:true,existingNavigationAndAccount:true,noHorizontalOverflow:true});
   await page.close();
  }
  fs.writeFileSync(output+'/testresultaten.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));await browser.close();
