@@ -44,4 +44,4 @@ jobs:
           name: oxxalbums-static-upload
           path: oxxalbums-static-upload.zip
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 7
