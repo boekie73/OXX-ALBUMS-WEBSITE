@@ -1,0 +1,62 @@
+name: OXX Albums static upload package
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: oxxalbums-package-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    if: github.ref == 'refs/heads/codex/v5-0-vimexx-php'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for an existing package for this commit
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          count=$(gh api --paginate "repos/$GITHUB_REPOSITORY/actions/artifacts?name=oxxalbums-static-upload-$GITHUB_SHA&per_page=100" \
+            --jq '[.artifacts[] | select(.expired == false)] | length' | awk '{n += $1} END {print n+0}')
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.existing.outputs.count == '0'
+      - name: Build static website upload package
+        if: steps.existing.outputs.count == '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          cp preview/v4.8/index.html release/index.html
+          test -s release/index.html
+          test "$(wc -c < release/index.html)" -gt 100000
+          # The separate V4.8 API client is intentionally not shipped: no public intake activation.
+          test ! -e release/api
+          test ! -e release/web/application-api.mjs
+          python3 - <<'PY'
+          from pathlib import Path
+          import zipfile
+          source = Path('release/index.html')
+          with zipfile.ZipFile('oxxalbums-static-upload.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+              archive.write(source, arcname='index.html')
+          with zipfile.ZipFile('oxxalbums-static-upload.zip') as archive:
+              assert archive.namelist() == ['index.html']
+              assert archive.testzip() is None
+          print('PASS: one-file static website package; no API/backend included')
+          PY
+          sha256sum oxxalbums-static-upload.zip
+      - name: Publish download for manual DirectAdmin upload
+        if: steps.existing.outputs.count == '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: oxxalbums-static-upload-${{ github.sha }}
+          path: oxxalbums-static-upload.zip
+          if-no-files-found: error
+          retention-days: 7
