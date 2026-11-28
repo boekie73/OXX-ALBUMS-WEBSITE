@@ -1,21 +1,35 @@
 name: OXX Albums static upload package
 
 on:
-  push:
-    branches: [codex/v5-0-vimexx-php]
-    paths:
-      - .github/workflows/oxxalbums-static-release.yml
   workflow_dispatch:
 
 permissions:
   contents: read
+  actions: read
+
+concurrency:
+  group: oxxalbums-package-${{ github.sha }}
+  cancel-in-progress: false
 
 jobs:
   package:
+    if: github.ref == 'refs/heads/codex/v5-0-vimexx-php'
     runs-on: ubuntu-latest
     steps:
+      - name: Check for an existing package for this commit
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          count=$(gh api --paginate "repos/$GITHUB_REPOSITORY/actions/artifacts?name=oxxalbums-static-upload-$GITHUB_SHA&per_page=100" \
+            --jq '[.artifacts[] | select(.expired == false)] | length' | awk '{n += $1} END {print n+0}')
+          echo "count=$count" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
+        if: steps.existing.outputs.count == '0'
       - name: Build static website upload package
+        if: steps.existing.outputs.count == '0'
         shell: bash
         run: |
           set -euo pipefail
@@ -39,9 +53,10 @@ jobs:
           PY
           sha256sum oxxalbums-static-upload.zip
       - name: Publish download for manual DirectAdmin upload
+        if: steps.existing.outputs.count == '0'
         uses: actions/upload-artifact@v4
         with:
-          name: oxxalbums-static-upload
+          name: oxxalbums-static-upload-${{ github.sha }}
           path: oxxalbums-static-upload.zip
           if-no-files-found: error
           retention-days: 7
